@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TeamCommunicationPlatform")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+23f49267df71d50a6f095d15c6f8d9c8783b795d")]
 [assembly: System.Reflection.AssemblyProductAttribute("TeamCommunicationPlatform")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TeamCommunicationPlatform")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
