@@ -1,0 +1,71 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Dashboard";
+    var messages = ViewBag.Messages as List<TeamCommunicationPlatform.Models.Message>;
+    var logs = ViewBag.Logs as List<TeamCommunicationPlatform.Models.UserLoginLog>;
+    var users = ViewBag.Users as List<TeamCommunicationPlatform.Models.User>;
+    var role = HttpContextAccessor.HttpContext?.Session.GetString("Role");
+    var name = HttpContextAccessor.HttpContext?.Session.GetString("Name");
+}
+
+<h2>Dashboard</h2>
+<p>Welcome, <strong>@name</strong>! You are logged in as: <strong>@role</strong>.</p>
+
+<h3>Send a Message</h3>
+<form method="post" action="/Dashboard/SendMessage">
+    <select name="receiverId" required>
+        <option value="" disabled selected>Select a user</option>
+        @if (users != null)
+        {
+            foreach (var user in users)
+            {
+                <option value="@user.Id">@user.Name</option>
+            }
+        }
+    </select>
+    <textarea name="content" placeholder="Type your message here" required></textarea>
+    <button type="submit" class="btn btn-primary">Send</button>
+</form>
+
+<h3>Inbox</h3>
+@if (messages != null && messages.Any())
+{
+    <ul class="list-group">
+        @foreach (var message in messages)
+        {
+            <li class="list-group-item">
+                <strong>From:</strong> @users?.FirstOrDefault(u => u.Id == message.SenderId)?.Name ?? "Unknown"
+                <br />
+                <strong>Message:</strong> @message.Content
+                <br />
+                <strong>Timestamp:</strong> @message.Timestamp.ToString("g")
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No messages found.</p>
+}
+
+<h3>Login/Logout Logs</h3>
+@if (logs != null && logs.Any())
+{
+    <ul class="list-group">
+        @foreach (var log in logs)
+        {
+            <li class="list-group-item">
+                <strong>User:</strong> @users?.FirstOrDefault(u => u.Id == log.UserId)?.Name ?? "Unknown"
+                <br />
+                <strong>Login Time:</strong> @log.LoginTime.ToString("g")
+                <br />
+                <strong>Logout Time:</strong> @(log.LogoutTime?.ToString("g") ?? "Still Logged In")
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No logs found.</p>
+}
