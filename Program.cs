@@ -1,7 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using TeamCommunicationPlatform.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Register the database context.
+builder.Services.AddDbContext<TeamCommunicationContext>(options =>
+    options.UseSqlite("Data Source=TeamCommunication.db"));
+
+// Register session services.
+builder.Services.AddSession();
+
+// Register IHttpContextAccessor.
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -17,6 +30,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// Add session middleware.
+app.UseSession();
 
 app.UseAuthorization();
 
