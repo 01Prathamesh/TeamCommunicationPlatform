@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Send Message";
+}
+
+<h2>Send Message</h2>
+
+<form method="post" action="/Message/Send">
+    <label for="receiverId">Recipient:</label>
+    <select id="receiverId" name="receiverId" required>
+        @foreach (var user in ViewBag.Users)
+        {
+            <option value="@user.Id">@user.Name (@user.Role)</option>
+        }
+    </select>
+
+    <label for="content">Message:</label>
+    <textarea id="content" name="content" placeholder="Write your message here..." rows="5" required></textarea>
+
+    <button type="submit">Send Message</button>
+</form>

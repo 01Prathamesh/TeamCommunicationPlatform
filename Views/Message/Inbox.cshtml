@@ -1,0 +1,23 @@
+﻿@using System.Linq
+@model List<TeamCommunicationPlatform.Models.Message>
+
+<h2>Inbox</h2>
+
+@if (Model != null && Model.Any())
+{
+    <ul>
+        @foreach (var message in Model)
+        {
+            <li>
+                <strong>From:</strong> @message.SenderId <br />
+                <strong>Message:</strong> @message.Content <br />
+                <strong>Timestamp:</strong> @message.Timestamp.ToString("g")
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No messages found in your inbox.</p>
+}
+<a href="/Message/Send">Send a Message</a>
