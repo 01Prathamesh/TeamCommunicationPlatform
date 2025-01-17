@@ -1,8 +1,32 @@
-﻿@{
+﻿@inject IHttpContextAccessor HttpContextAccessor
+
+@{
     ViewData["Title"] = "Home Page";
+    var role = HttpContextAccessor.HttpContext?.Session.GetString("Role");
+    var name = HttpContextAccessor.HttpContext?.Session.GetString("Name");
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to Team Communication Platform</h1>
+    <p class="lead">Efficiently connect, collaborate, and track team activities.</p>
+
+    @if (!string.IsNullOrEmpty(role))
+    {
+        <div class="mt-4">
+            <h3>Hello, @name!</h3>
+            <p>You are logged in as: <strong>@role</strong></p>
+
+            <a class="btn btn-primary" href="/Dashboard">Go to Dashboard</a>
+            <a class="btn btn-secondary" href="/Authentication/Logout">Logout</a>
+        </div>
+    }
+    else
+    {
+        <div class="mt-4">
+            <h4>Welcome, Guest!</h4>
+            <p>Please log in or register to access the platform.</p>
+            <a class="btn btn-primary" href="/Authentication/Login">Login</a>
+            <a class="btn btn-secondary" href="/Authentication/Register">Register</a>
+        </div>
+    }
 </div>
