@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+<h2>Register</h2>
+<form method="post" action="/Authentication/Register">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" placeholder="Full Name" required />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="Email Address" required />
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" placeholder="Password" required />
+
+    <label for="role">Role:</label>
+    <select id="role" name="role" required>
+        <option value="Admin">Admin</option>
+        <option value="ProjectLeader">Project Leader</option>
+        <option value="Programmer">Programmer</option>
+    </select>
+
+    <button type="submit">Register</button>
+
+    @if (ViewBag.Error != null)
+    {
+        <p style="color: red;">@ViewBag.Error</p>
+    }
+</form>
