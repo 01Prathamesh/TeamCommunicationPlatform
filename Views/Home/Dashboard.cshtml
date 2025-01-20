@@ -9,63 +9,152 @@
     var name = HttpContextAccessor.HttpContext?.Session.GetString("Name");
 }
 
-<h2>Dashboard</h2>
-<p>Welcome, <strong>@name</strong>! You are logged in as: <strong>@role</strong>.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
 
-<h3>Send a Message</h3>
-<form method="post" action="/Dashboard/SendMessage">
-    <select name="receiverId" required>
-        <option value="" disabled selected>Select a user</option>
-        @if (users != null)
-        {
-            foreach (var user in users)
-            {
-                <option value="@user.Id">@user.Name</option>
-            }
-        }
-    </select>
-    <textarea name="content" placeholder="Type your message here" required></textarea>
-    <button type="submit" class="btn btn-primary">Send</button>
-</form>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<h3>Inbox</h3>
-@if (messages != null && messages.Any())
-{
-    <ul class="list-group">
-        @foreach (var message in messages)
-        {
-            <li class="list-group-item">
-                <strong>From:</strong> @users?.FirstOrDefault(u => u.Id == message.SenderId)?.Name ?? "Unknown"
-                <br />
-                <strong>Message:</strong> @message.Content
-                <br />
-                <strong>Timestamp:</strong> @message.Timestamp.ToString("g")
-            </li>
+    <!-- Custom CSS for additional styling -->
+    <style>
+        .dashboard-header {
+            background-color: #6a11cb;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
         }
-    </ul>
-}
-else
-{
-    <p>No messages found.</p>
-}
 
-<h3>Login/Logout Logs</h3>
-@if (logs != null && logs.Any())
-{
-    <ul class="list-group">
-        @foreach (var log in logs)
-        {
-            <li class="list-group-item">
-                <strong>User:</strong> @users?.FirstOrDefault(u => u.Id == log.UserId)?.Name ?? "Unknown"
-                <br />
-                <strong>Login Time:</strong> @log.LoginTime.ToString("g")
-                <br />
-                <strong>Logout Time:</strong> @(log.LogoutTime?.ToString("g") ?? "Still Logged In")
-            </li>
+        .dashboard-section {
+            margin-bottom: 30px;
         }
-    </ul>
-}
-else
-{
-    <p>No logs found.</p>
-}
+
+        .message-card, .log-card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .message-card:hover, .log-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .form-control, .btn {
+            border-radius: 10px;
+        }
+
+        .message-box {
+            width: 100%;
+            height: 150px;
+            border-radius: 10px;
+        }
+
+        .list-group-item {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .list-group-item:hover {
+            background-color: #f1f1f1;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header text-center mb-5">
+            <h2>Welcome to Your Dashboard</h2>
+            <p>Welcome, <strong>@name</strong>! You are logged in as: <strong>@role</strong>.</p>
+        </div>
+
+        <!-- Send a Message Section -->
+        <div class="dashboard-section">
+            <div class="message-card">
+                <h3>Send a Message</h3>
+                <form method="post" action="/Dashboard/SendMessage">
+                    <div class="mb-3">
+                        <select name="receiverId" class="form-select" required>
+                            <option value="" disabled selected>Select a user</option>
+                            @if (users != null)
+                            {
+                                foreach (var user in users)
+                                {
+                                    <option value="@user.Id">@user.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <textarea name="content" class="form-control message-box" placeholder="Type your message here" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Inbox Section -->
+        <div class="dashboard-section">
+            <div class="message-card">
+                <h3>Inbox</h3>
+                @if (messages != null && messages.Any())
+                {
+                    <ul class="list-group">
+                        @foreach (var message in messages)
+                        {
+                            <li class="list-group-item">
+                                <strong>From:</strong> @users?.FirstOrDefault(u => u.Id == message.SenderId)?.Name ?? "Unknown"
+                                <br />
+                                <strong>Message:</strong> @message.Content
+                                <br />
+                                <strong>Timestamp:</strong> @message.Timestamp.ToString("g")
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>No messages found.</p>
+                }
+            </div>
+        </div>
+
+        <!-- Login/Logout Logs Section -->
+        <div class="dashboard-section">
+            <div class="log-card">
+                <h3>Login/Logout Logs</h3>
+                @if (logs != null && logs.Any())
+                {
+                    <ul class="list-group">
+                        @foreach (var log in logs)
+                        {
+                            <li class="list-group-item">
+                                <strong>User:</strong> @users?.FirstOrDefault(u => u.Id == log.UserId)?.Name ?? "Unknown"
+                                <br />
+                                <strong>Login Time:</strong> @log.LoginTime.ToString("g")
+                                <br />
+                                <strong>Logout Time:</strong> @(log.LogoutTime?.ToString("g") ?? "Still Logged In")
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>No logs found.</p>
+                }
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap 5 JS & Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
