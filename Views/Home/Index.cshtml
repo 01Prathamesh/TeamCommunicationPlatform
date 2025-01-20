@@ -6,27 +6,129 @@
     var name = HttpContextAccessor.HttpContext?.Session.GetString("Name");
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to Team Communication Platform</h1>
-    <p class="lead">Efficiently connect, collaborate, and track team activities.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
 
-    @if (!string.IsNullOrEmpty(role))
-    {
-        <div class="mt-4">
-            <h3>Hello, @name!</h3>
-            <p>You are logged in as: <strong>@role</strong></p>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-            <a class="btn btn-primary" href="/Dashboard">Go to Dashboard</a>
-            <a class="btn btn-secondary" href="/Authentication/Logout">Logout</a>
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f4f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .hero-section {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            padding: 80px 0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-custom {
+            background-color: #2575fc;
+            border-color: #2575fc;
+        }
+
+        .btn-custom:hover {
+            background-color: #6a11cb;
+            border-color: #6a11cb;
+        }
+
+        .card-custom {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .welcome-message {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .lead {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="hero-section text-center">
+            <h1 class="display-4">Welcome to Team Communication Platform</h1>
+            <p class="lead">Efficiently connect, collaborate, and track team activities.</p>
         </div>
-    }
-    else
-    {
-        <div class="mt-4">
-            <h4>Welcome, Guest!</h4>
-            <p>Please log in or register to access the platform.</p>
-            <a class="btn btn-primary" href="/Authentication/Login">Login</a>
-            <a class="btn btn-secondary" href="/Authentication/Register">Register</a>
+
+        @if (!string.IsNullOrEmpty(role))
+        {
+            <div class="text-center mt-5">
+                <h3 class="welcome-message">Hello, @name!</h3>
+                <p>You are logged in as: <strong>@role</strong></p>
+
+                <div class="d-flex justify-content-center mt-4">
+                    <a class="btn btn-custom mx-2" href="/Dashboard">Go to Dashboard</a>
+                    <a class="btn btn-secondary mx-2" href="/Authentication/Logout">Logout</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="text-center mt-5">
+                <h4>Welcome, Guest!</h4>
+                <p>Please log in or register to access the platform.</p>
+
+                <div class="d-flex justify-content-center mt-4">
+                    <a class="btn btn-custom mx-2" href="/Authentication/Login">Login</a>
+                    <a class="btn btn-secondary mx-2" href="/Authentication/Register">Register</a>
+                </div>
+            </div>
+        }
+
+        <!-- Feature Section -->
+        <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
+            <div class="col">
+                <div class="card feature-card">
+                    <h5 class="card-title">Real-Time Messaging</h5>
+                    <p class="card-text">Instant messaging to keep your team in sync no matter the distance.</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card feature-card">
+                    <h5 class="card-title">Task Management</h5>
+                    <p class="card-text">Effortlessly create, track, and manage tasks with your team.</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card feature-card">
+                    <h5 class="card-title">Document Sharing</h5>
+                    <p class="card-text">Easily share documents and collaborate on important files.</p>
+                </div>
+            </div>
         </div>
-    }
-</div>
+
+    </div>
+
+    <!-- Bootstrap JS & Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
