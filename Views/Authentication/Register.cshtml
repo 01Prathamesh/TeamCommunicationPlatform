@@ -2,28 +2,124 @@
     ViewData["Title"] = "Register";
 }
 
-<h2>Register</h2>
-<form method="post" action="/Authentication/Register">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" placeholder="Full Name" required />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" placeholder="Email Address" required />
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" placeholder="Password" required />
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f4f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    <label for="role">Role:</label>
-    <select id="role" name="role" required>
-        <option value="Admin">Admin</option>
-        <option value="ProjectLeader">Project Leader</option>
-        <option value="Programmer">Programmer</option>
-    </select>
+        .register-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-    <button type="submit">Register</button>
+        .register-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
 
-    @if (ViewBag.Error != null)
-    {
-        <p style="color: red;">@ViewBag.Error</p>
-    }
-</form>
+            .register-card h2 {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+        .form-control, .btn {
+            border-radius: 10px;
+        }
+
+        .btn-custom {
+            background-color: #2575fc;
+            border-color: #2575fc;
+        }
+
+            .btn-custom:hover {
+                background-color: #6a11cb;
+                border-color: #6a11cb;
+            }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .form-select {
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container register-container">
+        <div class="register-card">
+            <h2>Create an Account</h2>
+
+            <form method="post" action="/Authentication/Register">
+                <div class="input-group mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Full Name" required />
+                </div>
+
+                <div class="input-group mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Email Address" required />
+                </div>
+
+                <div class="input-group mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required />
+                </div>
+
+                <div class="input-group mb-3">
+                    <label for="role" class="form-label">Role:</label>
+                    <select id="role" name="role" class="form-select" required>
+                        <option value="Admin">Admin</option>
+                        <option value="ProjectLeader">Project Leader</option>
+                        <option value="Programmer">Programmer</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-custom w-100">Register</button>
+
+                @if (ViewBag.Error != null)
+                {
+                    <p class="error-message">@ViewBag.Error</p>
+                }
+            </form>
+
+            <div class="text-center mt-3">
+                <p>Already have an account? <a href="/Authentication/Login">Login here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS & Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
